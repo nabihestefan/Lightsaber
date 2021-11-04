@@ -12,21 +12,25 @@ import board
 import neopixel
 import adafruit_lis3dh
 
-# CUSTOMIZE YOUR COLOR HERE:
-# (red, green, blue) -- each 0 (off) to 255 (brightest)
-# COLOR = (255, 0, 0)  # red
-COLOR = (100, 0, 255)  # purple
-# COLOR = (0, 100, 255) #cyan
+# COLORS
+DARK_COLOR = (255, 0, 0)  # red
+LIGHT_COLOR = (0, 100, 255) #cyan
+COLOR = LIGHT_COLOR
+
+# TIMES
+LIGHTON_TIME = 1.7
+LIGHTOFF_TIME = 1.15
+
 
 # CUSTOMIZE SENSITIVITY HERE: smaller numbers = more sensitive to motion
 HIT_THRESHOLD = 350 # 250
 SWING_THRESHOLD = 125
 
-NUM_PIXELS = 114
-# NUM_PIXELS = 85
+NUM_PIXELS = 352 *0.5
 NEOPIXEL_PIN = board.D5
 POWER_PIN = board.D10
 SWITCH_PIN = board.D9
+SIDE_PIN = board.D4
 
 enable = DigitalInOut(POWER_PIN)
 enable.direction = Direction.OUTPUT
@@ -49,6 +53,11 @@ strip.show()
 switch = DigitalInOut(SWITCH_PIN)
 switch.direction = Direction.INPUT
 switch.pull = Pull.UP
+
+change = DigitalInOut(SIDE_PIN)
+change.direction = Direction.INPUT
+change.pull = Pull.UP
+side = 0                                # Initial mode = LIGHT
 
 time.sleep(0.1)
 
@@ -145,20 +154,36 @@ while True:
 
     red_led.value = True
 
+    if not change.value                     # button pressed?
+        if side == 0:                       # Already in LIGHT mode
+            COLOR = DARK_COLOR              # set it to dark and re-light
+            enable.value = True
+            power('on', LIGHTON_TIME, False)         # Power up!
+            play_wav('idle', loop=True)     # Play background hum sound
+            mode = 1
+            side = 1
+        else                                # in DARK mode
+            COLOR = LIGHT_COLOR              # set it to dark and re-light
+            enable.value = True
+            power('on', LIGHTON_TIME, False)         # Power up!
+            play_wav('idle', loop=True)     # Play background hum sound
+            mode = 1
+            side = 0
+
     if not switch.value:                    # button pressed?
         if mode == 0:                       # If currently off...
             enable.value = True
-            power('on', 1.7, False)         # Power up!
+            power('on', LIGHTON_TIME, False)         # Power up!
             play_wav('idle', loop=True)     # Play background hum sound
             mode = 1                        # ON (idle) mode now
         else:                               # else is currently on...
-            power('off', 1.15, True)        # Power down
+            power('off', LIGHTOFF_TIME, True)        # Power down
             mode = 0                        # OFF mode now
             enable.value = False
         while not switch.value:             # Wait for button release
             time.sleep(0.2)                 # to avoid repeated triggering
 
-    elif mode >= 1:                         # If not OFF mode...
+    if mode >= 1:                         # If not OFF mode...
         x, y, z = accel.acceleration # Read accelerometer
         accel_total = x * x + z * z
         # (Y axis isn't needed for this, assuming Hallowing is mounted
