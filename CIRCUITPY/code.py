@@ -13,20 +13,19 @@ import neopixel
 import adafruit_lis3dh
 
 # COLORS
-DARK_COLOR = (255, 0, 0)  # red
-LIGHT_COLOR = (0, 100, 255) #cyan
-COLOR = LIGHT_COLOR
+DARK_SIDE = (255, 0, 0)  # red
+LIGHT_SIDE = (0, 100, 255) #cyan
+COLOR = LIGHT_SIDE
 
 # TIMES
 LIGHTON_TIME = 1.7
 LIGHTOFF_TIME = 1.15
 
-
 # CUSTOMIZE SENSITIVITY HERE: smaller numbers = more sensitive to motion
 HIT_THRESHOLD = 350 # 250
 SWING_THRESHOLD = 125
 
-NUM_PIXELS = 352 *0.5
+NUM_PIXELS = 176
 NEOPIXEL_PIN = board.D5
 POWER_PIN = board.D10
 SWITCH_PIN = board.D9
@@ -154,7 +153,7 @@ while True:
 
     red_led.value = True
 
-    if not change.value                     # button pressed?
+    if not change.value:                    # button pressed?
         if side == 0:                       # Already in LIGHT mode
             COLOR = DARK_COLOR              # set it to dark and re-light
             enable.value = True
@@ -162,7 +161,7 @@ while True:
             play_wav('idle', loop=True)     # Play background hum sound
             mode = 1
             side = 1
-        else                                # in DARK mode
+        else:                                # in DARK mode
             COLOR = LIGHT_COLOR              # set it to dark and re-light
             enable.value = True
             power('on', LIGHTON_TIME, False)         # Power up!
