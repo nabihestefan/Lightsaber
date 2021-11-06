@@ -10,3 +10,14 @@ For this project, we anticipate challenges in the design of the retraction/exten
 ## Sketches
 
 ![Sketch V1.0](/sketches/V1.jpg "Sketch V1.0")
+
+## Wiring Diagram
+
+## Notes
+To run, upload the code to the Featherwing and wire everything as shown above. Then click the button connected to pin D9 and play!
+
+To see debugging prints from Featherwing leave it connected to computer and do the following:
+
+run ls /dev/ttyACM0* to figure out which port its connected to
+run screen /dev/ttyACM0 (ttyACMO being the port it was connected to)
+(you may need to download the screen program using apt install)
