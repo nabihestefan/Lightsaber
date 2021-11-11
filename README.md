@@ -7,9 +7,14 @@ For our project, we plan to build a replica lightsaber. On the mechanical side, 
 
 For this project, we anticipate challenges in the design of the retraction/extension mechanism, especially in fitting it into a comfortably sized hilt, and in successfully synchronizing the sound and light changes with actual movement. We may also have issues in acquiring parts, depending on chip availability. Our current fabrication plan is to start with 3D printing, which is easier to prototype with but could be a challenge to do full-scale. As a stretch, once the design is done, we could use the lathe and mills to make a metal hilt, though this may become expensive and time-consuming.
 
+## Organizing
+CIRCUITPY has the code, sounds, and libraries that should be on the Featherwing
+imgs contains images for the report/README
+sounds? contains extra sounds that we have that we couldn't fit into the Featherwing
+
 ## Sketches
 
-![Sketch V1.0](/sketches/V1.jpg "Sketch V1.0")
+![Sketch V1.0](/imgs/V1.jpg "Sketch V1.0")
 
 ## Wiring Diagram
 
