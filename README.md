@@ -23,7 +23,7 @@ This is our final wiring diagram containing everything we used, to see previous 
 For this project, we anticipate challenges in the design of the retraction/extension mechanism, especially in fitting it into a comfortably sized hilt, and in successfully synchronizing the sound and light changes with actual movement. We may also have issues in acquiring parts, depending on chip availability. Our current fabrication plan is to start with 3D printing, which is easier to prototype with but could be a challenge to do full-scale. As a stretch, once the design is done, we could use the lathe and mills to make a metal hilt, though this may become expensive and time-consuming.
 
 ## General Repo Notes
-- ``/CIRCUITPY`` has the code, sounds, and libraries that should be on the Featherwing
+- ``/Extendable`` and ``/Detachable`` have the code, sounds, and libraries that should be on the Featherwing for each of the respective versions of our lightsaber
 - ``/imgs`` contains images for the report & README
 - ``/sounds?`` contains extra sounds that we have that we couldn't fit into the Featherwing (The rest of the sounds should be in the /CIRCUITPY/sounds folder)
 
